@@ -1,10 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>GMod Loading Screen</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>the fellas</title>
+
+    <style>
+        html, body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: black;
+        }
+
+        body {
+            background-image: url("wesker.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>GMod Loading Screen</h1>
-    <p>If you can see this, GitHub Pages is working!</p>
+
+    <audio id="music" autoplay></audio>
+
+    <script>
+        const songs = [
+            "1.ogg",
+            "2.ogg",
+            "3.ogg",
+            "4.ogg",
+            "5.ogg"
+        ];
+
+        let currentSong = 0;
+
+        const music = document.getElementById("music");
+
+        function playNextSong() {
+            music.src = songs[currentSong];
+            music.play();
+
+            currentSong++;
+
+            if (currentSong >= songs.length) {
+                currentSong = 0;
+            }
+        }
+
+        music.addEventListener("ended", playNextSong);
+
+        playNextSong();
+    </script>
+
 </body>
 </html>
