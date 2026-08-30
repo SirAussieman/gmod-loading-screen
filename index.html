@@ -15,7 +15,8 @@
             background: black;
         }
 
-        #image {
+        #image,
+        #fish {
             position: fixed;
             inset: 0;
 
@@ -23,14 +24,19 @@
             height: 100%;
 
             object-fit: cover;
+        }
 
+        #image {
             opacity: 1;
-
             transition: opacity 1.5s ease-in-out;
         }
 
         #image.fade {
             opacity: 0;
+        }
+
+        #fish {
+            display: none;
         }
     </style>
 </head>
@@ -39,87 +45,119 @@
 
     <img id="image" src="" alt="">
 
+    <video id="fish" autoplay loop playsinline>
+        <source src="fish.mp4" type="video/mp4">
+    </video>
+
     <audio id="music"></audio>
 
     <script>
+
         /* =========================
-           IMAGES
+           1 IN 25 FISH EASTER EGG
            ========================= */
 
-        const images = [
-            "Wesker.jpg"
-        ];
-
-        let currentImage = 0;
-
+        const fish = document.getElementById("fish");
         const image = document.getElementById("image");
-
-
-        /* =========================
-           IMAGE ROTATION
-           ========================= */
-
-        // Display the first image immediately
-        image.src = images[currentImage];
-
-        // Change image every 10 seconds
-        setInterval(() => {
-
-            // Fade out
-            image.classList.add("fade");
-
-            setTimeout(() => {
-
-                // Move to the next image
-                currentImage++;
-
-                // Loop back to the first image
-                if (currentImage >= images.length) {
-                    currentImage = 0;
-                }
-
-                // Change the image
-                image.src = images[currentImage];
-
-                // Fade back in
-                image.classList.remove("fade");
-
-            }, 1500);
-
-        }, 10000);
-
-
-        /* =========================
-           MUSIC
-           ========================= */
-
-        const songs = [
-            "1.ogg",
-            "2.ogg",
-            "3.ogg"
-        ];
-
         const music = document.getElementById("music");
 
+        const fishMode = Math.floor(Math.random() * 25) === 0;
 
-        // Pick a random song when the page loads
-        function playRandomSong() {
 
-            const randomSong =
-                Math.floor(Math.random() * songs.length);
+        /* =========================
+           FISH MODE
+           ========================= */
 
-            music.src = songs[randomSong];
+        if (fishMode) {
 
-            music.play();
+            // Hide the normal image
+            image.style.display = "none";
+
+            // Show the fish
+            fish.style.display = "block";
+
+            // Stop the music
+            music.pause();
+
         }
 
 
-        // When a song finishes, pick another random song
-        music.addEventListener("ended", playRandomSong);
+        /* =========================
+           NORMAL IMAGE MODE
+           ========================= */
+
+        else {
+
+            const images = [
+                "image1.jpg",
+                "image2.jpg",
+                "image3.jpg",
+                "image4.jpg"
+            ];
+
+            let currentImage = 0;
+
+            // Display the first image
+            image.src = images[currentImage];
 
 
-        // Start the music
-        playRandomSong();
+            // Change image every 10 seconds
+            setInterval(() => {
+
+                // Fade out
+                image.classList.add("fade");
+
+                setTimeout(() => {
+
+                    // Move to next image
+                    currentImage++;
+
+                    // Loop back to first image
+                    if (currentImage >= images.length) {
+                        currentImage = 0;
+                    }
+
+                    // Change image
+                    image.src = images[currentImage];
+
+                    // Fade back in
+                    image.classList.remove("fade");
+
+                }, 1500);
+
+            }, 10000);
+
+
+            /* =========================
+               MUSIC
+               ========================= */
+
+            const songs = [
+                "1.ogg",
+                "2.ogg",
+                "3.ogg",
+                "4.ogg"
+            ];
+
+            // Pick a random song
+            function playRandomSong() {
+
+                const randomSong =
+                    Math.floor(Math.random() * songs.length);
+
+                music.src = songs[randomSong];
+
+                music.play();
+
+            }
+
+            // When a song finishes, pick another
+            music.addEventListener("ended", playRandomSong);
+
+            // Start music
+            playRandomSong();
+
+        }
 
     </script>
 
