@@ -19,7 +19,9 @@
         #fish,
         #robertloggia,
         #letsgroove,
-        #myneighbourhood {
+        #myneighbourhood,
+        #spiderman,
+        #horse, {
             position: fixed;
             inset: 0;
 
@@ -40,7 +42,9 @@
 
         #fish,
         #robertloggia,
-        #letsgroove {
+        #letsgroove,
+        #spiderman,
+        #horse, {
             display: none;
         }
     </style>
@@ -62,6 +66,12 @@
     <!-- Rare My Neighbourhood easter egg -->
     <video id="myneighbourhood" playsinline preload="none"></video>
 
+    <!-- Rare spiderman easter egg -->
+    <video id="spiderman" playsinline preload="none"></video>
+
+    <!-- Rare horse easter egg -->
+    <video id="horse" playsinline preload="none"></video>
+
     <!-- Normal loading music -->
     <audio id="music" preload="auto"></audio>
 
@@ -75,6 +85,8 @@
         const robertLoggia = document.getElementById("robertloggia");
         const letsgroove = document.getElementById("letsgroove");
         const myneighbourhood = document.getElementById("myneighbourhood");
+        const spiderman = document.getElementById("letsgroove");
+        const horse = document.getElementById("myneighbourhood");
         const music = document.getElementById("music");
 
 
@@ -108,7 +120,7 @@
 
         // All videos have a set chance depending on how many videos there are
 
-        const videoRoll = Math.floor(Math.random() * 30) + 1;
+        const videoRoll = Math.floor(Math.random() * 50) + 1;
 
         /* =========================
            STARTUP MODE
@@ -126,6 +138,12 @@
         else if (videoRoll === 4) {
             startMyNeighbourhood();
         }
+        else if (videoRoll === 5) {
+            startSpiderman();
+        }
+        else if (videoRoll === 6) {
+            startHorse();
+        }
         else {
             startNormalLoading();
         }
@@ -140,6 +158,8 @@
             fish.style.display = "none";
             letsgroove.style.display = "none";
             myneighbourhood.style.display = "none";
+            spiderman.style.display = "none";
+            horse.style.display = "none";
 
             robertLoggia.style.display = "block";
 
@@ -167,6 +187,8 @@
             robertLoggia.style.display = "none";
             letsgroove.style.display = "none";
             myneighbourhood.style.display = "none";
+            spiderman.style.display = "none";
+            horse.style.display = "none";
 
             fish.style.display = "block";
 
@@ -193,6 +215,8 @@
             robertLoggia.style.display = "none";
             fish.style.display = "none";
             myneighbourhood.style.display = "none";
+            spiderman.style.display = "none";
+            horse.style.display = "none";
 
             letsgroove.style.display = "block";
 
@@ -219,6 +243,8 @@
             robertLoggia.style.display = "none";
             fish.style.display = "none";
             letsgroove.style.display = "none";
+            spiderman.style.display = "none";
+            horse.style.display = "none";
 
             myneighbourhood.style.display = "block";
 
@@ -233,6 +259,62 @@
             }, { once: true });
 
             myneighbourhood.play().catch(() => {});
+        }
+
+        /* =========================
+           SPIDERMAN MODE
+           ========================= */
+        
+        function startSpiderman() {
+
+            image.style.display = "none";
+            robertLoggia.style.display = "none";
+            fish.style.display = "none";
+            letsgroove.style.display = "none";
+            myneighbourhood.style.display = "none";
+            horse.style.display = "none";
+
+            spiderman.style.display = "block";
+
+            spiderman.volume = 0.2;
+
+            // The souce is only assigned if this rare event triggers.
+            spiderman.src = "spiderman.mp4";
+
+            spiderman.addEventListener("ended", () => {
+                spiderman.style.display = "none";
+                startNormalLoading();
+            }, { once: true });
+
+            spiderman.play().catch(() => {});
+        }
+
+        /* =========================
+           MY NEIGHBOURHOOD MODE
+           ========================= */
+        
+        function startHorse() {
+
+            image.style.display = "none";
+            robertLoggia.style.display = "none";
+            fish.style.display = "none";
+            letsgroove.style.display = "none";
+            spiderman.style.display = "none";
+            myneighbourhood.style.display = "none";
+
+            horse.style.display = "block";
+
+            horse.volume = 0.2;
+
+            // The souce is only assigned if this rare event triggers.
+            horse.src = "horse.mp4";
+
+            horse.addEventListener("ended", () => {
+                horse.style.display = "none";
+                startNormalLoading();
+            }, { once: true });
+
+            horse.play().catch(() => {});
         }
 
         /* =========================
