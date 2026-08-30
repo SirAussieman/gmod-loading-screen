@@ -18,7 +18,8 @@
         #image,
         #fish,
         #robertloggia,
-        #letsgroove {
+        #letsgroove,
+        #myneighbourhood {
             position: fixed;
             inset: 0;
 
@@ -58,6 +59,9 @@
     <!-- Rare Let's Groove easter egg -->
     <video id="letsgroove" playsinline preload="none"></video>
 
+    <!-- Rare My Neighbourhood easter egg -->
+    <video id="myneighbourhood" playsinline preload="none"></video>
+
     <!-- Normal loading music -->
     <audio id="music" preload="auto"></audio>
 
@@ -70,6 +74,7 @@
         const fish = document.getElementById("fish");
         const robertLoggia = document.getElementById("robertloggia");
         const letsgroove = document.getElementById("letsgroove");
+        const myneighbourhood = document.getElementById("myneighbourhood");
         const music = document.getElementById("music");
 
 
@@ -101,34 +106,29 @@
            RARE VIDEO ROLLS
            ========================= */
 
-        // Fish: 1/25 (4%)
-        // Robert Loggia: 1/100 (1%)
-        //
-        // These rolls are independent.
-        // If both happen, Robert Loggia gets priority.
+        // All videos have a set chance depending on how many videos there are
 
-        const fishRoll = Math.floor(Math.random() * 25) === 0;
-        const robertLoggiaRoll = Math.floor(Math.random() * 100) === 0;
-        const letsGrooveRoll = Math.floor(Math.random() * 50) === 0;
-
+        const videoRoll = Math.floor(Math.random() * 30) + 1;
 
         /* =========================
            STARTUP MODE
            ========================= */
 
-        if (robertLoggiaRoll) {
+        if (videoRoll === 1) {
             startRobertLoggia();
         }
-        else if (fishRoll) {
+        else if (videoRoll === 2) {
             startFish();
         }
-        else if (letsGrooveRoll) {
+        else if (videoRoll === 3) {
             startLetsGroove();
+        }
+        else if (videoRoll === 4) {
+            startMyNeighbourhood();
         }
         else {
             startNormalLoading();
         }
-
 
         /* =========================
            ROBERT LOGGIA MODE
@@ -139,6 +139,7 @@
             image.style.display = "none";
             fish.style.display = "none";
             letsgroove.style.display = "none";
+            myneighbourhood.style.display = "none";
 
             robertLoggia.style.display = "block";
 
@@ -165,6 +166,7 @@
             image.style.display = "none";
             robertLoggia.style.display = "none";
             letsgroove.style.display = "none";
+            myneighbourhood.style.display = "none";
 
             fish.style.display = "block";
 
@@ -190,6 +192,7 @@
             image.style.display = "none";
             robertLoggia.style.display = "none";
             fish.style.display = "none";
+            myneighbourhood.style.display = "none";
 
             letsgroove.style.display = "block";
 
@@ -206,6 +209,31 @@
             letsgroove.play().catch(() => {});
         }
 
+        /* =========================
+           MY NEIGHBOURHOOD MODE
+           ========================= */
+        
+        function startMyNeighbourhood() {
+
+            image.style.display = "none";
+            robertLoggia.style.display = "none";
+            fish.style.display = "none";
+            letsgroove.style.display = "none";
+
+            myneighbourhood.style.display = "block";
+
+            myneighbourhood.volume = 0.2;
+
+            // The souce is only assigned if this rare event triggers.
+            myneighbourhood.src = "myneighbourhood.mp4";
+
+            myneighbourhood.addEventListener("ended", () => {
+                myneighbourhood.style.display = "none";
+                startNormalLoading();
+            }, { once: true });
+
+            myneighbourhood.play().catch(() => {});
+        }
 
         /* =========================
            NORMAL LOADING SCREEN
