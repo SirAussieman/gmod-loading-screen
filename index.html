@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>the fellas</title>
+    <title>The Fellas</title>
 
     <style>
         html, body {
@@ -15,44 +15,112 @@
             background: black;
         }
 
-        body {
-            background-image: url("Wesker.jpg");
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+        #image {
+            position: fixed;
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            opacity: 1;
+
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        #image.fade {
+            opacity: 0;
         }
     </style>
 </head>
 
 <body>
 
-    <audio id="music" autoplay></audio>
+    <img id="image" src="" alt="">
+
+    <audio id="music"></audio>
 
     <script>
+        /* =========================
+           IMAGES
+           ========================= */
+
+        const images = [
+            "Wesker.jpg"
+        ];
+
+        let currentImage = 0;
+
+        const image = document.getElementById("image");
+
+
+        /* =========================
+           IMAGE ROTATION
+           ========================= */
+
+        // Display the first image immediately
+        image.src = images[currentImage];
+
+        // Change image every 10 seconds
+        setInterval(() => {
+
+            // Fade out
+            image.classList.add("fade");
+
+            setTimeout(() => {
+
+                // Move to the next image
+                currentImage++;
+
+                // Loop back to the first image
+                if (currentImage >= images.length) {
+                    currentImage = 0;
+                }
+
+                // Change the image
+                image.src = images[currentImage];
+
+                // Fade back in
+                image.classList.remove("fade");
+
+            }, 1500);
+
+        }, 10000);
+
+
+        /* =========================
+           MUSIC
+           ========================= */
+
         const songs = [
             "1.ogg",
             "2.ogg",
             "3.ogg"
         ];
 
-        let currentSong = 0;
-
         const music = document.getElementById("music");
 
-        function playNextSong() {
-            music.src = songs[currentSong];
+
+        // Pick a random song when the page loads
+        function playRandomSong() {
+
+            const randomSong =
+                Math.floor(Math.random() * songs.length);
+
+            music.src = songs[randomSong];
+
             music.play();
-
-            currentSong++;
-
-            if (currentSong >= songs.length) {
-                currentSong = 0;
-            }
         }
 
-        music.addEventListener("ended", playNextSong);
 
-        playNextSong();
+        // When a song finishes, pick another random song
+        music.addEventListener("ended", playRandomSong);
+
+
+        // Start the music
+        playRandomSong();
+
     </script>
 
 </body>
