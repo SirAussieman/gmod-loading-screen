@@ -17,7 +17,8 @@
 
         #image,
         #fish,
-        #robertloggia {
+        #robertloggia,
+        #letsgroove {
             position: fixed;
             inset: 0;
 
@@ -37,7 +38,8 @@
         }
 
         #fish,
-        #robertloggia {
+        #robertloggia,
+        #letsgroove {
             display: none;
         }
     </style>
@@ -53,6 +55,9 @@
     <!-- Rare Robert Loggia easter egg -->
     <video id="robertloggia" playsinline preload="none"></video>
 
+    <!-- Rare Let's Groove easter egg -->
+    <video id="letsgroove" playsinline preload="none"></video>
+
     <!-- Normal loading music -->
     <audio id="music" preload="auto"></audio>
 
@@ -64,6 +69,7 @@
         const image = document.getElementById("image");
         const fish = document.getElementById("fish");
         const robertLoggia = document.getElementById("robertloggia");
+        const letsgroove = document.getElementById("letsgroove");
         const music = document.getElementById("music");
 
 
@@ -103,6 +109,7 @@
 
         const fishRoll = Math.floor(Math.random() * 25) === 0;
         const robertLoggiaRoll = Math.floor(Math.random() * 100) === 0;
+        const letsGrooveRoll = Math.floor(Math.random() * 50) === 0;
 
 
         /* =========================
@@ -114,6 +121,9 @@
         }
         else if (fishRoll) {
             startFish();
+        }
+        else if (letsGrooveRoll) {
+            startletsgroove();
         }
         else {
             startNormalLoading();
@@ -128,6 +138,7 @@
 
             image.style.display = "none";
             fish.style.display = "none";
+            letsgroove.style.display = "none";
 
             robertLoggia.style.display = "block";
 
@@ -153,6 +164,7 @@
 
             image.style.display = "none";
             robertLoggia.style.display = "none";
+            letsgroove.style.display = "none";
 
             fish.style.display = "block";
 
@@ -167,6 +179,31 @@
             }, { once: true });
 
             fish.play().catch(() => {});
+        }
+
+        /* =========================
+           LETS GROOVE MODE
+           ========================= */
+
+        function startLetsGroove() {
+
+            image.style.display = "none";
+            robertLoggia.style.display = "none";
+            fish.style.display = "none";
+
+            letsgroove.style.display = "block";
+
+            letsgroove.volume = 0.2;
+
+            // The source is only assigned if this rare event triggers.
+            letsgroove.src = "letsgroove.mp4";
+
+            letsgroove.addEventListener("ended", () => {
+                letsgroove.style.display = "none";
+                startNormalLoading();
+            }, { once: true });
+
+            letsgroove.play().catch(() => {});
         }
 
 
