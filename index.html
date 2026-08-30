@@ -16,7 +16,8 @@
         }
 
         #image,
-        #fish {
+        #fish,
+        #robertloggia {
             position: fixed;
             inset: 0;
 
@@ -35,7 +36,8 @@
             opacity: 0;
         }
 
-        #fish {
+        #fish,
+        #robertloggia {
             display: none;
         }
     </style>
@@ -44,119 +46,135 @@
 <body>
 
     <img id="image" src="" alt="">
-
+    
     <video id="fish" autoplay loop playsinline>
         <source src="fish.mp4" type="video/mp4">
     </video>
-
+    
+    <video id="robertloggia" autoplay loop playsinline>
+        <source src="robertloggia.mp4" type="video/mp4">
+    </video>
+    
     <audio id="music"></audio>
 
     <script>
 
         /* =========================
-           1 IN 25 FISH EASTER EGG
+           RARE VIDEO EASTER EGGS
            ========================= */
-
+        
         const fish = document.getElementById("fish");
+        const robertLoggia = document.getElementById("robertloggia");
         const image = document.getElementById("image");
         const music = document.getElementById("music");
-
-        const fishMode = Math.floor(Math.random() * 25) === 0;
-
-
+        
+        const robertLoggiaMode = Math.floor(Math.random() * 100) === 0;
+        const fishMode = !robertLoggiaMode && Math.floor(Math.random() * 25) === 0;
+        
+        
+        /* =========================
+           ROBERT LOGGIA MODE
+           ========================= */
+        
+        if (robertLoggiaMode) {
+        
+            image.style.display = "none";
+            fish.style.display = "none";
+        
+            robertLoggia.style.display = "block";
+        
+            // Robert Loggia volume
+            robertLoggia.volume = 0.4;
+        
+            music.pause();
+        
+        }
+        
+        
         /* =========================
            FISH MODE
            ========================= */
-
-        if (fishMode) {
-
-            // Hide the normal image
+        
+        else if (fishMode) {
+        
             image.style.display = "none";
-
-            // Show the fish
+            robertLoggia.style.display = "none";
+        
             fish.style.display = "block";
-
-            // Stop the music
+        
+            // Fish volume
+            fish.volume = 0.4;
+        
             music.pause();
-
+        
         }
-
-
+        
+        
         /* =========================
            NORMAL IMAGE MODE
            ========================= */
-
+        
         else {
-
+        
             const images = [
-                "image1.jpg",
-                "image2.jpg",
-                "image3.jpg",
-                "image4.jpg"
+                "1.jpg",
+                "2.jpg",
+                "3.jpg",
+                "4.jpg"
             ];
-
+        
             let currentImage = 0;
-
-            // Display the first image
+        
             image.src = images[currentImage];
-
-
-            // Change image every 10 seconds
+        
+        
             setInterval(() => {
-
-                // Fade out
+        
                 image.classList.add("fade");
-
+        
                 setTimeout(() => {
-
-                    // Move to next image
+        
                     currentImage++;
-
-                    // Loop back to first image
+        
                     if (currentImage >= images.length) {
                         currentImage = 0;
                     }
-
-                    // Change image
+        
                     image.src = images[currentImage];
-
-                    // Fade back in
+        
                     image.classList.remove("fade");
-
+        
                 }, 1500);
-
+        
             }, 10000);
-
-
+        
+        
             /* =========================
                MUSIC
                ========================= */
-
+        
             const songs = [
                 "1.ogg",
                 "2.ogg",
                 "3.ogg",
                 "4.ogg"
             ];
-
-            // Pick a random song
+        
             function playRandomSong() {
-
+        
                 const randomSong =
                     Math.floor(Math.random() * songs.length);
-
+        
                 music.src = songs[randomSong];
-
+        
                 music.play();
-
+        
             }
-
-            // When a song finishes, pick another
+        
             music.addEventListener("ended", playRandomSong);
-
-            // Start music
+        
             playRandomSong();
-
+        
         }
 
     </script>
