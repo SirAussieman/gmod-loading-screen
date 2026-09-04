@@ -55,22 +55,22 @@
     <img id="image" src="" alt="">
 
     <!-- Rare Fish easter egg -->
-    <video id="fish" playsinline preload="none"></video>
+    <video id="fish" playsinline preload="none" loop></video>
 
     <!-- Rare Robert Loggia easter egg -->
-    <video id="robertloggia" playsinline preload="none"></video>
+    <video id="robertloggia" playsinline preload="none" loop></video>
 
     <!-- Rare Let's Groove easter egg -->
-    <video id="letsgroove" playsinline preload="none"></video>
+    <video id="letsgroove" playsinline preload="none" loop></video>
 
     <!-- Rare My Neighbourhood easter egg -->
-    <video id="myneighbourhood" playsinline preload="none"></video>
+    <video id="myneighbourhood" playsinline preload="none" loop></video>
 
     <!-- Rare spiderman easter egg -->
-    <video id="spiderman" playsinline preload="none"></video>
+    <video id="spiderman" playsinline preload="none" loop></video>
 
     <!-- Rare horse easter egg -->
-    <video id="horse" playsinline preload="none"></video>
+    <video id="horse" playsinline preload="none" loop></video>
 
     <!-- Normal loading music -->
     <audio id="music" preload="auto"></audio>
@@ -172,11 +172,6 @@
             // The source is only assigned if this rare event triggers.
             robertLoggia.src = "robertloggia.webm";
 
-            robertLoggia.addEventListener("ended", () => {
-                robertLoggia.style.display = "none";
-                startNormalLoading();
-            }, { once: true });
-
             robertLoggia.play().catch(() => {});
         }
 
@@ -201,11 +196,6 @@
             // The source is only assigned if this rare event triggers.
             fish.src = "fish.webm";
 
-            fish.addEventListener("ended", () => {
-                fish.style.display = "none";
-                startNormalLoading();
-            }, { once: true });
-
             fish.play().catch(() => {});
         }
 
@@ -228,11 +218,6 @@
 
             // The source is only assigned if this rare event triggers.
             letsgroove.src = "letsgroove.webm";
-
-            letsgroove.addEventListener("ended", () => {
-                letsgroove.style.display = "none";
-                startNormalLoading();
-            }, { once: true });
 
             letsgroove.play().catch(() => {});
         }
@@ -257,11 +242,6 @@
             // The souce is only assigned if this rare event triggers.
             myneighbourhood.src = "myneighbourhood.webm";
 
-            myneighbourhood.addEventListener("ended", () => {
-                myneighbourhood.style.display = "none";
-                startNormalLoading();
-            }, { once: true });
-
             myneighbourhood.play().catch(() => {});
         }
 
@@ -285,11 +265,6 @@
             // The souce is only assigned if this rare event triggers.
             spiderman.src = "spiderman.webm";
 
-            spiderman.addEventListener("ended", () => {
-                spiderman.style.display = "none";
-                startNormalLoading();
-            }, { once: true });
-
             spiderman.play().catch(() => {});
         }
 
@@ -312,11 +287,6 @@
 
             // The souce is only assigned if this rare event triggers.
             horse.src = "horse.webm";
-
-            horse.addEventListener("ended", () => {
-                horse.style.display = "none";
-                startNormalLoading();
-            }, { once: true });
 
             horse.play().catch(() => {});
         }
