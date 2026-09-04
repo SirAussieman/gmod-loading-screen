@@ -249,44 +249,72 @@
            SPIDERMAN MODE
            ========================= */
         
-        function startSpiderman() {
+		function startSpiderman() {
 
-            image.style.display = "none";
-            robertLoggia.style.display = "none";
-            fish.style.display = "none";
-            letsgroove.style.display = "none";
-            myneighbourhood.style.display = "none";
-            horse.style.display = "none";
+			image.style.display = "none";
+			robertLoggia.style.display = "none";
+			fish.style.display = "none";
+			letsgroove.style.display = "none";
+			myneighbourhood.style.display = "none";
+			horse.style.display = "none";
 
-            spiderman.style.display = "block";
+			spiderman.style.display = "block";
 
-            spiderman.volume = 0.2;
+			spiderman.volume = 0.2;
 
-            // The souce is only assigned if this rare event triggers.
-            spiderman.src = "spiderman.webm";
+			spiderman.src = "spiderman.webm";
 
 			spiderman.addEventListener("ended", () => {
+
 				spiderman.style.display = "none";
 
 				const otherVideos = [
-					fish,
-					robertLoggia,
-					letsgroove,
-					myneighbourhood,
-					horse
+					{
+						element: fish,
+						src: "fish.webm"
+					},
+					{
+						element: robertLoggia,
+						src: "robertloggia.webm"
+					},
+					{
+						element: letsgroove,
+						src: "letsgroove.webm"
+					},
+					{
+						element: myneighbourhood,
+						src: "myneighbourhood.webm"
+					},
+					{
+						element: horse,
+						src: "horse.webm"
+					}
 				];
 
 				const randomVideo =
-					otherVideos[Math.floor(Math.random() * otherVideos.length)];
+					otherVideos[
+						Math.floor(Math.random() * otherVideos.length)
+					];
 
-				randomVideo.style.display = "block";
-				randomVideo.volume = 0.2;
+				randomVideo.element.style.display = "block";
+				randomVideo.element.volume = 0.2;
 
-				randomVideo.play().catch(() => {});
+				// Assign the source before attempting to play
+				randomVideo.element.src = randomVideo.src;
+
+				// Make sure it loops
+				randomVideo.element.loop = true;
+
+				randomVideo.element.play().catch((error) => {
+					console.log("Video failed to play:", error);
+				});
+
 			}, { once: true });
 
-            spiderman.play().catch(() => {});
-        }
+			spiderman.play().catch((error) => {
+				console.log("Spider-Man failed to play:", error);
+			});
+		}
 
         /* =========================
            MY NEIGHBOURHOOD MODE
