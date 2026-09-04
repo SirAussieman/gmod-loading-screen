@@ -67,7 +67,7 @@
     <video id="myneighbourhood" playsinline preload="none" loop></video>
 
     <!-- Rare spiderman easter egg -->
-    <video id="spiderman" playsinline preload="none" loop></video>
+    <video id="spiderman" playsinline preload="none"></video>
 
     <!-- Rare horse easter egg -->
     <video id="horse" playsinline preload="none" loop></video>
@@ -264,6 +264,26 @@
 
             // The souce is only assigned if this rare event triggers.
             spiderman.src = "spiderman.webm";
+
+			spiderman.addEventListener("ended", () => {
+				spiderman.style.display = "none";
+
+				const otherVideos = [
+					fish,
+					robertLoggia,
+					letsgroove,
+					myneighbourhood,
+					horse
+				];
+
+				const randomVideo =
+					otherVideos[Math.floor(Math.random() * otherVideos.length)];
+
+				randomVideo.style.display = "block";
+				randomVideo.volume = 0.2;
+
+				randomVideo.play().catch(() => {});
+			}, { once: true });
 
             spiderman.play().catch(() => {});
         }
